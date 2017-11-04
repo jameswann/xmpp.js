@@ -53,7 +53,7 @@ class Server extends EventEmitter {
     socket.connection = connection
     connection.server = this
     this.emit('connection', connection)
-    connection.accept(socket)
+    connection.open({ socket })
   }
 
   listen(port, host, fn) {

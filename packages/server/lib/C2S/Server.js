@@ -3,7 +3,8 @@
 const Server = require('../Server')
 const Plain = require('./authentication/Plain')
 const accept = require('../plugins/accept')
-const features = require('../plugins/features')
+const features = require('../plugins/stream-features')
+const sasl = require('../plugins/sasl')
 
 /**
  * Params:
@@ -71,6 +72,7 @@ class C2SServer extends Server {
 C2SServer.prototype.plugins = {
   accept,
   features,
+  sasl,
 }
 
 module.exports = C2SServer

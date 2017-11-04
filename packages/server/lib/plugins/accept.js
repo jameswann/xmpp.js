@@ -6,8 +6,11 @@ const plugin = require('@xmpp/plugin')
 
 const NS_CLIENT = 'jabber:client'
 
-function accept(socket) {
-  return this.connect({ socket }).then(() => {
+function accept(options) {
+  this._status('opening')
+  // Useful for stream-features restart
+  this.openOptions = options
+  return this.connect(options).then(() => {
     promise(this.parser, 'start').then(el => {
       const headerElement = this.headerElement()
       if (
@@ -34,7 +37,7 @@ function accept(socket) {
 module.exports = plugin('accept', {
   start() {
     this.entity.NS = NS_CLIENT
-    this.entity.accept = accept
+    this.entity.open = accept
   },
 
   stop() {
